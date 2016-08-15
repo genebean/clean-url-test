@@ -1,12 +1,19 @@
 <?php
-$qs = [];
+if (count($_GET) === 1) {
+  $qs = [];
 
-foreach($_GET as $key => $value)
-{
-  array_push($qs, "$key=$value");
+  foreach($_GET as $key => $value)
+  {
+    array_push($qs, "$key=$value");
+  }
+
+  $qs_formatted = "?" . implode('&', $qs);
+} else {
+  http_response_code(404);
+  echo readfile($_SERVER['DOCUMENT_ROOT'] . '/error/oops.html');
+  exit();
 }
 
-$qs_formatted = "?" . implode('&', $qs);
 ?>
 
 <h1>Clean URL Test Page</h1>
